@@ -31,8 +31,6 @@ Run any database migrations or seed data scripts, if applicable.
 
 # Start the Server:
 
-sql
-Copy code
 npm start
 
 # Access the API:
