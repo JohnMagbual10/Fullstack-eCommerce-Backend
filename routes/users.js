@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { createUser, fetchUsers, fetchFavorites, createFavorite, destroyFavorite } = require('../db');
+const verifyTokenMiddleware = require('../middlewares/verifyToken'); // Add this line
 
 router.post('/', async (req, res, next) => {
     try {
