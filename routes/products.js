@@ -1,34 +1,23 @@
 const express = require('express');
 const router = express.Router();
+const { fetchProducts, createProduct } = require('../db');
 
-// GET all products
-router.get('/', (req, res) => {
-  // Placeholder logic to get all products
-  res.send('GET all products');
+router.get('/', async (req, res, next) => {
+    try {
+        res.send(await fetchProducts());
+    } catch (ex) {
+        next(ex);
+    }
 });
 
-// GET product by ID
-router.get('/:id', (req, res) => {
-  // Placeholder logic to get product by ID
-  res.send(`GET product by ID: ${req.params.id}`);
-});
-
-// POST create a new product
-router.post('/', (req, res) => {
-  // Placeholder logic to create a new product
-  res.send('POST create a new product');
-});
-
-// PUT update an existing product
-router.put('/:id', (req, res) => {
-  // Placeholder logic to update an existing product
-  res.send(`PUT update product by ID: ${req.params.id}`);
-});
-
-// DELETE delete a product by ID
-router.delete('/:id', (req, res) => {
-  // Placeholder logic to delete a product by ID
-  res.send(`DELETE product by ID: ${req.params.id}`);
+router.post('/', async (req, res, next) => {
+    try {
+        const { name, description, price, stock_quantity, category_id } = req.body;
+        const newProduct = await createProduct({ name, description, price, stock_quantity, category_id });
+        res.status(201).json(newProduct);
+    } catch (error) {
+        next(error);
+    }
 });
 
 module.exports = router;
